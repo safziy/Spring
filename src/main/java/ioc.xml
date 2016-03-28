@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-init-method="init">
+
+	<context:annotation-config />
+
+	<!-- 自动检测 -->
+	<!-- <context:component-scan base-package="com.safziy.spring.ioc" /> -->
+
+	<bean id="simpleBean" class="com.safziy.spring.ioc.SimpleBean">
+		<constructor-arg name="age" value="15"></constructor-arg>
+	</bean>
+
+	<bean id="factoryBean" class="com.safziy.spring.ioc.FactoryBean" factory-method="getInstance">
+	</bean>
+
+	<bean id="prototypeBean" class="com.safziy.spring.ioc.PrototypeBean" scope="prototype">
+	</bean>
+
+	<bean id="singletonBean" class="com.safziy.spring.ioc.SingletonBean" scope="singleton">
+	</bean>
+
+	<bean id="singletonBean1" class="com.safziy.spring.ioc.SingletonBean" scope="singleton">
+	</bean>
+
+	<bean id="setBean" class="com.safziy.spring.ioc.SetBean">
+		<property name="age" value="15"></property>
+		<property name="otherBean" ref="simpleBean"></property>
+	</bean>
+
+	<bean id="setBean1" class="com.safziy.spring.ioc.SetBean">
+		<property name="age" value="15"></property>
+		<property name="otherBean">
+			<bean class="com.safziy.spring.ioc.SimpleBean">
+				<constructor-arg name="age" value="15"></constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="setBean2" class="com.safziy.spring.ioc.SetBean" p:age="35"
+		p:otherBean-ref="simpleBean">
+	</bean>
+
+	<bean id="collectionBean" class="com.safziy.spring.ioc.CollectionBean">
+		<property name="list">
+			<list>
+				<value>aaa</value>
+				<value>bbb</value>
+				<value>ccc</value>
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<ref bean="simpleBean"></ref>
+				<bean class="com.safziy.spring.ioc.SimpleBean">
+					<constructor-arg name="age" value="15"></constructor-arg>
+				</bean>
+			</set>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="aaa" value-ref="simpleBean"></entry>
+				<entry key="bbb">
+					<bean class="com.safziy.spring.ioc.SimpleBean">
+						<constructor-arg name="age" value="15"></constructor-arg>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<property name="pro">
+			<map>
+				<entry key="aaa" value-ref="simpleBean"></entry>
+				<entry key="bbb">
+					<bean class="com.safziy.spring.ioc.SimpleBean">
+						<constructor-arg name="age" value="15"></constructor-arg>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="nullBean" class="com.safziy.spring.ioc.NullBean">
+		<property name="name">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="spELBean" class="com.safziy.spring.ioc.SpELBean">
+		<property name="age" value="#{5}"></property>
+		<property name="probability" value="#{96.3}"></property>
+		<property name="capacity" value="#{1.23e5}"></property>
+		<property name="name" value="#{'hello'}"></property>
+		<property name="flag" value="#{true}"></property>
+		<property name="simpleBean" value="#{simpleBean}"></property>
+		<property name="otherBean" value="#{setBean1.otherBean}"></property>
+		<property name="song" value="#{simpleBean.getSong()?.toUpperCase()}"></property>
+		<property name="pi" value="#{T(java.lang.Math).PI}"></property>
+		<property name="result" value="#{T(java.lang.Math).PI * simpleBean.age ^ 2}"></property>
+		<property name="eFlag" value="#{T(java.lang.Math).PI eq 3.14}"></property>
+	</bean>
+
+	<bean id="autoBean" class="com.safziy.spring.ioc.AutoBean"></bean>
+
+</beans>
