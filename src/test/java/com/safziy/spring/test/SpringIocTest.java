@@ -1,11 +1,25 @@
-package com.safziy.spring.ioc;
+package com.safziy.spring.test;
 
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Client {
+import com.safziy.spring.annotation.DisplayBeanA;
+import com.safziy.spring.annotation.DisplayBeanB;
+import com.safziy.spring.ioc.AutoBean;
+import com.safziy.spring.ioc.CollectionBean;
+import com.safziy.spring.ioc.FactoryBean;
+import com.safziy.spring.ioc.NullBean;
+import com.safziy.spring.ioc.PrototypeBean;
+import com.safziy.spring.ioc.SetBean;
+import com.safziy.spring.ioc.SimpleBean;
+import com.safziy.spring.ioc.SingletonBean;
+import com.safziy.spring.ioc.SpELBean;
 
-	public static void main(String[] args) {
+public class SpringIocTest {
+	
+	@Test
+	public void testBean() {
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("ioc.xml");
 		// 获取bean
@@ -17,7 +31,7 @@ public class Client {
 		// 获取的bean默认是单例模式
 		SimpleBean bean1 = (SimpleBean) context.getBean("simpleBean");
 		bean1.display();
-		
+
 		System.out.println("bean1 ...  " + bean1);
 
 		// 利用静态工厂来初始化bean
@@ -64,4 +78,16 @@ public class Client {
 		bean13.display();
 	}
 
+	@Test
+	public void testAnnotation(){
+		@SuppressWarnings("resource")
+		ApplicationContext context = new ClassPathXmlApplicationContext("annotation.xml");
+
+		DisplayBeanA beanA = context.getBean(DisplayBeanA.class);
+		beanA.display();
+
+		DisplayBeanB beanB = context.getBean(DisplayBeanB.class);
+		beanB.display();
+	}
+	
 }
