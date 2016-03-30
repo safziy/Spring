@@ -4,9 +4,9 @@ import java.lang.reflect.Proxy;
 
 public class MainClass {
 	public static void main(String[] args) throws Exception {
-		Object objTarget = Class.forName("com.safziy.spring.proxy.FooImpl").newInstance();
-		FooImpl foo = (FooImpl) Proxy.newProxyInstance(Foo.class.getClassLoader(),
-				objTarget.getClass().getInterfaces(), new MyInvocationHandler(objTarget));
+		FooImpl target = (FooImpl)Class.forName("com.safziy.spring.proxy.FooImpl").newInstance();
+		Foo foo = (Foo)Proxy.newProxyInstance(FooImpl.class.getClassLoader(),
+				target.getClass().getInterfaces(), new MyInvocationHandler(target));
 		foo.speak();
 	}
 }

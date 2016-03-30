@@ -1,6 +1,6 @@
 package com.safziy.spring.proxy;
 
-public class FooImpl implements Foo {
+public class FooImpl implements Foo{
 
 	@Override
 	public void speak() {
