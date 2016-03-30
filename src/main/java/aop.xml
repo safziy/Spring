@@ -13,7 +13,9 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<bean id="userServies" class="com.safziy.spring.servies.UserServies" />
+	<bean id="bookServies" class="com.safziy.spring.servies.BookServies" />
 	<bean id="log" class="com.safziy.spring.aop.Log" />
+	<bean id="annotationAdvice" class="com.safziy.spring.aop.AnnotationAdvice" />
 	<bean id="myAdvice" class="com.safziy.spring.aop.MyAdvice" />
 	<aop:config>
 		<aop:pointcut expression="execution(* com.safziy.spring.servies.UserServies.speak(..))" id="userServiesPointcut" />
@@ -30,5 +32,7 @@
 			<aop:around method="around" pointcut-ref="usp" />
 		</aop:aspect>
 	</aop:config>
+	
+	<aop:aspectj-autoproxy />
 
 </beans>
