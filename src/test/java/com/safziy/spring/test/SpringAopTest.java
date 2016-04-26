@@ -11,7 +11,6 @@ public class SpringAopTest {
 
 	@Test
 	public void testAop() {
-		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("aop.xml");
 
 		UserServies userServies = (UserServies) context.getBean("userServies");

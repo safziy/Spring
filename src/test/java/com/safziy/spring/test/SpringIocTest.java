@@ -20,7 +20,6 @@ public class SpringIocTest {
 	
 	@Test
 	public void testBean() {
-		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("ioc.xml");
 		// 获取bean
 		SimpleBean bean = (SimpleBean) context.getBean("simpleBean");
@@ -80,7 +79,6 @@ public class SpringIocTest {
 
 	@Test
 	public void testAnnotation(){
-		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("annotation.xml");
 
 		DisplayBeanA beanA = context.getBean(DisplayBeanA.class);
